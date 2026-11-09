@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Birthday!</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Caveat:wght@500;700&display=swap">
+<style>
+:root{
+  --bg1: #0d0614;
+  --bg2: #190b28;
+  --ink: #fce7f3;
+  --btn: #ec4899;
+  --accent: #f472b6;
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  box-sizing:border-box;height:100%;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  color:var(--ink);color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100%;
+  display:flex;
+  font-family:"Baloo 2",system-ui,sans-serif;
+  overflow-x:hidden;
+  /* Dark Navy Overlay mixed with your bg.jpg background image */
+  background: linear-gradient(160deg, rgba(13, 6, 20, 0.85), rgba(25, 11, 40, 0.85)), url('bg.jpg') center/cover no-repeat fixed;
+}
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#bg span{position:absolute;left:0;top:0;font-size:30px;opacity:.35;transition-property:transform;transition-timing-function:ease-in-out;will-change:transform}
+.stage{position:relative;z-index:1;flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 16px;gap:16px;min-width:0}
+.stage.on{display:flex;animation:in .5s ease both}
+@keyframes in{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+h1,h2,p{margin:0}
+h1{font-size:clamp(1.8rem,7vw,2.6rem);line-height:1.1;text-shadow:0 2px 10px rgba(0,0,0,0.7)}
+p.msg{font-size:1.25rem;max-width:28ch;color:#fbcfe8}
+
+/* Glassmorphism Buttons */
+.btn{font:700 1.1rem "Baloo 2",system-ui,sans-serif;padding:.65em 1.6em;border:1px solid var(--glass-border);border-radius:999px;background:linear-gradient(135deg, rgba(236, 72, 153, 0.85), rgba(168, 85, 247, 0.85));color:#fff;box-shadow:0 8px 32px rgba(0,0,0,.4);cursor:pointer;backdrop-filter:blur(10px);transition:transform .1s,box-shadow .1s}
+.btn:active{transform:translateY(2px);box-shadow:0 3px 10px rgba(0,0,0,.3)}
+.btn.ghost{background:var(--glass-bg);color:var(--ink);border:1px solid var(--glass-border);box-shadow:0 8px 32px rgba(0,0,0,.3);backdrop-filter:blur(10px)}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* countdown */
+#num{font-size:min(46vmin,260px);font-weight:700;line-height:1;color:var(--accent);text-shadow:0 0 30px rgba(244,114,182,0.5)}
+#num.pop{animation:pop .9s ease both}
+@keyframes pop{0%{transform:scale(.3);opacity:0}30%{transform:scale(1.15);opacity:1}100%{transform:scale(.9);opacity:.85}}
+
+/* cake */
+.cake{position:relative;width:min(260px,80vw);margin-top:70px}
+.candles{position:absolute;left:0;right:0;top:-46px;display:flex;justify-content:space-around;padding:0 16%;z-index:2}
+.candle{position:relative;width:10px;height:46px;border-radius:3px;background:repeating-linear-gradient(135deg,#fff 0 6px,#5db9f5 6px 12px)}
+.flame{position:absolute;left:50%;bottom:100%;width:14px;height:26px;margin-left:-7px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;
+ background:radial-gradient(ellipse at 50% 75%,#fff6c4 10%,#ffc83d 45%,#ff7a18 100%);transform-origin:50% 100%;
+ box-shadow:0 0 20px 8px rgba(255,170,40,.55);animation:flick .3s ease-in-out infinite alternate}
+@keyframes flick{from{transform:scale(1,1) rotate(-3deg)}to{transform:scale(.9,1.12) rotate(3deg)}}
+@keyframes flickSm{from{transform:scale(.5,.5) rotate(-12deg)}to{transform:scale(.4,.6) rotate(12deg)}}
+.dim .flame{animation:flickSm .12s ease-in-out infinite alternate;box-shadow:0 0 8px 2px rgba(255,170,40,.4)}
+.out .flame{animation:none;opacity:0;transform:scale(0);transition:opacity .4s,transform .4s;box-shadow:none}
+.out .candle::after{content:"";position:absolute;left:50%;bottom:100%;width:8px;height:8px;border-radius:50%;background:#aaa;opacity:0;animation:smoke 1.8s ease-out}
+@keyframes smoke{0%{opacity:.7;transform:translate(-50%,0) scale(1)}100%{opacity:0;transform:translate(-50%,-60px) scale(4)}}
+.l1,.l2{position:relative}
+.l1{height:64px;width:78%;margin:0 auto;border-radius:16px 16px 0 0;background:linear-gradient(135deg,#ec4899,#db2777);box-shadow:inset 0 2px 6px rgba(255,255,255,0.3)}
+.l2{height:78px;border-radius:12px 12px 8px 8px;background:linear-gradient(135deg,#9333ea,#6b21a8);box-shadow:inset 0 2px 6px rgba(255,255,255,0.3)}
+.l1::before,.l2::before{content:"";position:absolute;left:0;right:0;top:0;height:20px;background:radial-gradient(circle at 12px 0,#fff 11px,transparent 12px) 0 0/24px 20px repeat-x}
+.plate{height:12px;margin:0 -14px;border-radius:50%;background:rgba(255,255,255,0.25);backdrop-filter:blur(4px)}
+.gust{position:absolute;left:-30px;top:-20px;font-size:40px;opacity:0;pointer-events:none}
+.wind .gust{animation:gust .8s ease-out}
+@keyframes gust{0%{opacity:0;transform:translateX(0)}30%{opacity:1}100%{opacity:0;transform:translateX(110px)}}
+
+/* envelope */
+.env-wrap{position:relative;width:min(320px,86vw);height:210px;margin-top:245px}
+.env{position:absolute;inset:0;clip-path:inset(-400px -20px 0 -20px)}
+.back{position:absolute;inset:0;background:#db2777;border-radius:12px;box-shadow:0 20px 40px rgba(0,0,0,0.6)}
+
+/* Glass Letter Card */
+.letter{position:absolute;left:5%;right:5%;bottom:10px;height:190px;overflow:hidden;padding:16px;background:rgba(255, 255, 255, 0.95);backdrop-filter:blur(12px);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.5);z-index:2;text-align:left;color:#334155;font:500 1.2rem/1.25 Caveat,"Segoe Script",cursive;transition:transform .8s ease,height .8s ease}
+.letter p{margin:0 0 6px}
+.env.open .letter{height:300px;transform:translateY(-125px);transition-delay:.5s}
+
+.front{position:absolute;inset:0;background:linear-gradient(135deg,#f472b6,#db2777);clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);z-index:3;border-radius:12px}
+.flap{position:absolute;left:0;right:0;top:0;height:55%;background:linear-gradient(to bottom,#f472b6,#ec4899);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;z-index:4;transition:transform .6s ease .5s,z-index 0s .8s}
+.env.open .flap{transform:rotateX(180deg);z-index:1;transition:transform .6s ease 0s,z-index 0s .3s}
+
+.seal{position:absolute;left:50%;top:55%;width:46px;height:46px;transform:translate(-50%,-50%);border:0;border-radius:50%;z-index:6;color:#fff;font-size:20px;cursor:pointer;
+ background:radial-gradient(circle at 35% 30%,#fb7185,#9f1239);box-shadow:0 4px 12px rgba(0,0,0,.5);transition:opacity .3s,transform .3s}
+.env.open .seal{opacity:0;pointer-events:none;transform:translate(-50%,-50%) scale(.4)}
+
+/* result */
+.art{width:min(240px,64vw);height:auto;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.conf{position:fixed;top:-30px;font-size:22px;z-index:5;pointer-events:none;animation:fall 2.8s linear forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(540deg)}}
+
+/* Glass Image Box for Yes section */
+.yes-img {
+  width: min(220px, 60vw);
+  height: min(220px, 60vw);
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  border: 2px solid var(--glass-border);
+  animation: bob 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}}
+</style>
+</head>
+<body>
+<div id="bg" aria-hidden="true"></div>
+
+<main style="display:contents">
+<section class="stage" id="s-count" aria-live="polite">
+  <p class="msg">Get ready…</p>
+  <div id="num">5</div>
+</section>
+
+<section class="stage" id="s-cake">
+  <h1 id="cakeMsg">Make a wish, then blow out the candles</h1>
+  <div class="cake" id="cake">
+    <span class="gust">💨</span>
+    <div class="candles">
+      <div class="candle"><i class="flame"></i></div><div class="candle"><i class="flame"></i></div><div class="candle"><i class="flame"></i></div><div class="candle"><i class="flame"></i></div>
+    </div>
+    <div class="l1"></div><div class="l2"></div><div class="plate"></div>
+  </div>
+  <button class="btn" id="blowBtn">Blow 🌬️</button>
+</section>
+
+<section class="stage" id="s-env">
+  <div class="env-wrap">
+    <div class="env" id="env">
+      <div class="back"></div>
+      <div class="letter">
+        <p>Dear <span id="nm"></span>,</p>
+        <p>Happy Birthday! 🎂 Today the world celebrates you. May this year bring laughter that makes your cheeks ache, people who feel like home, and dreams that finally say yes.</p>
+        <p>With all my love,<br><b id="fr"></b></p>
+      </div>
+      <div class="front"></div>
+      <div class="flap"></div>
+      <button class="seal" id="seal" aria-label="Open message">♥</button>
+    </div>
+  </div>
+  <button class="btn" id="openBtn">Open message</button>
+</section>
+
+<section class="stage" id="s-ask">
+  <h1>Do you love it? 🥺</h1>
+  <div class="row"><button class="btn" id="yes">Yes</button><button class="btn ghost" id="no">No</button></div>
+</section>
+
+<section class="stage" id="s-yes">
+  <img src="yes.jpg" alt="Celebration" class="yes-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=400&auto=format&fit=crop';">
+  <h1>Yay! That made my day 💖</h1>
+  <button class="btn" data-replay>Play again</button>
+</section>
+
+<section class="stage" id="s-no">
+  <svg class="art" viewBox="0 0 200 210" role="img" aria-label="A sad face under a rain cloud">
+    <path d="M48 76a26 26 0 0 1 8-44 34 34 0 0 1 62-8 28 28 0 0 1 36 22 22 22 0 0 1-4 30z" fill="#9db0c6"/>
+    <path d="M70 88v14M100 92v14M130 88v14" stroke="#5ec4ff" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="100" cy="152" r="46" fill="#ffd36b"/>
+    <circle cx="84" cy="146" r="5" fill="#4a3a20"/><circle cx="116" cy="146" r="5" fill="#4a3a20"/>
+    <path d="M73 134l16-7M127 134l-16-7" stroke="#4a3a20" stroke-width="4" stroke-linecap="round"/>
+    <path d="M86 176q14-14 28 0" stroke="#4a3a20" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M84 156q-7 11 0 16 7-5 0-16z" fill="#5ec4ff"/>
+  </svg>
+  <h1>Oh no… I’ll try harder next year 🥲</h1>
+  <button class="btn" data-replay>Try again</button>
+</section>
+</main>
+
+<script>
+const CFG = { name: "Beautiful", from: "Someone who adores you. Richie" };
+
+const $ = s => document.querySelector(s);
+const show = id => { document.querySelectorAll('.stage').forEach(s => s.classList.remove('on')); $('#' + id).classList.add('on'); };
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+$('#nm').textContent = CFG.name; $('#fr').textContent = CFG.from;
+
+/* drifting emoji background */
+const bg = $('#bg');
+const icons = ['🎈','🎉','🎂','🎁','🥳','🎊','🍰','✨','🎀','💖','🎶','🪩','🧁','🎈'];
+for (let i = 0; i < 26; i++) {
+  const el = document.createElement('span');
+  el.textContent = icons[i % icons.length];
+  el.style.fontSize = (22 + Math.random() * 26) + 'px';
+  bg.appendChild(el);
+  const pos = () => `translate(${Math.random() * (innerWidth - 40)}px,${Math.random() * (innerHeight - 40)}px) rotate(${Math.random() * 60 - 30}deg)`;
+  el.style.transform = pos();
+  if (!calm) {
+    const go = () => { const d = 7 + Math.random() * 9; el.style.transitionDuration = d + 's'; el.style.transform = pos(); setTimeout(go, d * 1000); };
+    setTimeout(go, Math.random() * 1500);
+  }
+}
+
+/* confetti */
+function burst(set) {
+  for (let i = 0; i < 30; i++) {
+    const c = document.createElement('span'); c.className = 'conf';
+    c.textContent = set[i % set.length];
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.animationDelay = Math.random() * .8 + 's';
+    document.body.appendChild(c); setTimeout(() => c.remove(), 3800);
+  }
+}
+
+/* 1. countdown */
+function countdown() {
+  show('s-count');
+  let n = 5; const el = $('#num');
+  (function tick() {
+    el.textContent = n; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop');
+    if (n === 1) setTimeout(() => show('s-cake'), 1000);
+    else { n--; setTimeout(tick, 1000); }
+  })();
+}
+
+/* 2. cake */
+let blows = 0, busy = false;
+const cake = $('#cake'), msg = $('#cakeMsg'), blowBtn = $('#blowBtn');
+function blow() {
+  if (busy || blows >= 2) return;
+  blows++;
+  cake.classList.remove('wind'); void cake.offsetWidth; cake.classList.add('wind');
+  if (blows === 1) {
+    cake.classList.add('dim');
+    msg.textContent = 'Almost! Blow again 🌬️';
+    blowBtn.textContent = 'Blow again 🌬️';
+  } else {
+    busy = true;
+    cake.classList.remove('dim'); cake.classList.add('out');
+    msg.textContent = 'Wish made! ✨';
+    blowBtn.style.visibility = 'hidden';
+    burst(['🎉','🎊','✨','🎈']);
+    setTimeout(() => show('s-env'), 2200);
+  }
+}
+blowBtn.onclick = blow; cake.onclick = blow;
+
+/* 3. envelope */
+const env = $('#env'), openBtn = $('#openBtn');
+let isOpen = false;
+function toggle() {
+  if (!isOpen) {
+    isOpen = true; env.classList.add('open'); openBtn.textContent = 'Close message';
+  } else {
+    isOpen = false; env.classList.remove('open'); openBtn.textContent = 'Open message';
+    openBtn.disabled = true;
+    setTimeout(() => { openBtn.disabled = false; show('s-ask'); }, 1800);
+  }
+}
+openBtn.onclick = toggle;
+$('#seal').onclick = () => { if (!isOpen) toggle(); };
+
+/* 4. question */
+$('#yes').onclick = () => { show('s-yes'); burst(['💖','💗','💕','😍']); };
+$('#no').onclick = () => show('s-no');
+
+/* replay */
+document.querySelectorAll('[data-replay]').forEach(b => b.onclick = () => {
+  blows = 0; busy = false; isOpen = false;
+  cake.className = 'cake'; msg.textContent = 'Make a wish, then blow out the candles';
+  blowBtn.textContent = 'Blow 🌬️'; blowBtn.style.visibility = '';
+  env.classList.remove('open'); openBtn.textContent = 'Open message';
+  countdown();
+});
+
+countdown();
+</script>
+</body>
+</html>
